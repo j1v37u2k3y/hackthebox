@@ -2,7 +2,7 @@
 # Description: Creates folders and sets up tmux for HackTheBox
 
 # Auto-detect script location and base directory
-scriptdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+scriptdir="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 basedir="$HOME/ctf/htb"
 
 # Ensure base directory exists
