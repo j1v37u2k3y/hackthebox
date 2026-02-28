@@ -17,9 +17,12 @@ if [ -z "$test_name" ]; then
     exit 1
 fi
 
-# Update tmux environment
+# Update tmux environment and push to all panes in this session
 tmux setenv IP "$new_ip"
 export IP="$new_ip"
+for pane in $(tmux list-panes -s -t "$test_name" -F '#{pane_id}'); do
+    tmux send-keys -t "$pane" "export IP=${new_ip}" Enter
+done
 
 # Update /etc/hosts if the box has an entry
 server_name="${test_name}.htb"
